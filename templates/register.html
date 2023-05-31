@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cryptocurrency Trading</title>
+    <link rel="stylesheet" href="../static/loginpage.css">
+</head>
+<body>
+    <h1>Create an account</h1>
+
+    <form action="/signupcompleted" method = 'POST'>
+        <!-- Main container for all inputs -->
+        <div class="mainContainer">
+            <!-- Username -->
+            <label for="username">Username</label>
+            <input type="text" placeholder="Enter Username" name="original_username" required>
+
+            <label for="username">Email</label>
+            <input type="text" placeholder="Enter Email" name="username" required>
+
+            <br><br>
+
+            <!-- Password -->
+            <label for="pswrd">Your password</label>
+            <input type="password" placeholder="Enter Password" name="pswrd" required>
+
+            <!-- Password -->
+            <label for="pswrd">Retype your password</label>
+            <input type="password" placeholder="Retype Password" name="retype_pswrd" required>
+
+
+            <!-- Submit button -->
+            <button type="submit">Signup</button>
+
+
+        </div>
+
+    </form>
