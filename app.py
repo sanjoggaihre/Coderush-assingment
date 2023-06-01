@@ -151,6 +151,38 @@ def portfolio():
     conn.close()
     return render_template('portfolio.html', sell_total_data=sell_total_data, symbol=symbol, total_coin=coin_amount)
 
+@app.route('/orders', methods = ['POST','GET'])
+def orders():
+    return render_template('buy_sell.html')
+
+@app.route('/store_order', methods = ['POST','GET'])
+def store_orders():
+    email = session['email']
+    symbol = request.form.get('symbol')
+    coin_amount = request.form.get('coinAmount')
+    total_price = request.form.get('totalPrice')
+    transaction_type = request.form.get('transactionType')
+    # client = Client(api_key=API_key, api_secret= API_Secrete_Key, testnet= False)
+    # Store the order data in the database or perform any other necessary actions
+    if transaction_type == 'buy':
+        # Insert buy information into the buy table
+        conn = sqlite3.connect('mydatabase.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO buy (Email, symbol,coin_amount, total_price) VALUES (?, ?, ?, ?)",
+                    (email, symbol, coin_amount, total_price))
+        conn.commit()
+        conn.close()
+        return('Your buy order has been placed successfully!')
+        
+    elif transaction_type == 'sell':
+        # Insert sell information into the sell table
+        conn = sqlite3.connect('mydatabase.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO sell (Email, symbol, coin_amount, total_price) VALUES (?, ?, ?, ?)",
+                    (email, symbol, coin_amount, total_price))
+        conn.commit()
+        conn.close()
+        return('Your sell order has been placed successfully!')
 
 if __name__ == '__main__':
     app.run(debug=True)
