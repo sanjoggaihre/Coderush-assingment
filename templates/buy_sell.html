@@ -24,7 +24,7 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                    <a href="" class="active"><span class="las la-igloo"></span>
+                    <a href="{{ url_for('home') }}" class=""><span class="las la-igloo"></span>
                         <span>Dashboard</span></a>
                 </li> 
                 <li>
@@ -32,9 +32,9 @@
                         <span>Portfolio</span></a>
                 </li>
                 <li>
-                    <a href="{{ url_for('orders') }}"><span class="las la-users"></span>
+                    <a href="" class="active"><span class="las la-igloo"></span>
                         <span>Orders</span></a>
-                </li>
+                </li> 
                 
             </ul>
         </div>
@@ -99,41 +99,53 @@
             </div>
 
 
-            <div class="recent-grid">
-                <div class="container">
-                <div class="project">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Symbol</th>
-                                <th>priceChange</th>
-                                <th>prevClosePrice</th>
-                                <th>bidPrice</th>
-                                <th>highPrice</th>
-                                <th>lowPrice</th>
-                                <th>price</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for dict__ in data %}
-                            <tr>
-                                <td>{{ dict__['symbol'] }}</td>
-                                <td>{{ dict__['priceChange'] }}</td>
-                                <td>{{ dict__['prevClosePrice'] }}</td>
-                                <td>{{ dict__['bidPrice'] }}</td>
-                                <td>{{ dict__['highPrice'] }}</td>
-                                <td>{{ dict__['lowPrice'] }}</td>
-                                <td>{{ dict__['price'] }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>            
-                </div>
-                </div>
-                </div>
+            
+                             
+                <div class="order">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="flash-message">
+                            <p>{{ messages[0] }}</p>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                    <div class="headerbs">
+                        <h2>Place Your Order!</h2>
+                    </div>
+                    <div class="buy">
+                        <h2>Buy</h2>
+                        <form action="/store_order" method="post">
+                            <label for="symbol">Cryptocurrency Symbol:</label>
+                            <input type="text" id="symbol" name="symbol">
+                            <br>
+                            <label for="coinAmount">Amount of Coin:</label>
+                            <input type="text" id="coinAmount" name="coinAmount">
+                            <br>
+                            <label for="totalPrice">Total Price:</label>
+                            <input type="text" id="totalPrice" name="totalPrice">
+                            <br>
+                            <input type="hidden" name="transactionType" value="buy">
+                            <button type="submit">Buy</button>
+                        </form>
+                    </div>
                 
-            </div>
-            </div>
+                    <div class="sell">
+                        <h2>Sell</h2>
+                        <form action="/store_order" method="post">
+                            <label for="symbol">Cryptocurrency Symbol:</label>
+                            <input type="text" id="symbol" name="symbol">
+                            <br>
+                            <label for="sellCoinAmount">Total Coin:</label>
+                            <input type="text" id="sellCoinAmount" name="coinAmount">
+                            <br>
+                            <label for="sellTotalPrice">Total Price:</label>
+                            <input type="text" id="sellTotalPrice" name="totalPrice">
+                            <br>
+                            <input type="hidden" name="transactionType" value="sell">
+                            <button type="submit">Sell</button>
+                        </form>
+                    </div>
+                </div>
         </main>
     </div>
 </body>
